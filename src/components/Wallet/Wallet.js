@@ -1,22 +1,22 @@
 import {useWallet} from '@src/data-layer';
+import {Button} from 'antd';
+import {ConnectButton} from './ConnectButton';
+import {Account} from './Account';
 
 export function Wallet() {
-    const {wallet, connectWallet} = useWallet();
-    console.log('wallet', wallet);
+    const {wallet} = useWallet();
 
     if (wallet.isCheckingConnection) {
-        return <div>Checking connection...</div>
+        return <Button type="secondary" loading>Checking connection</Button>;
     }
 
     if (wallet.isConnecting) {
-        return <div>Connecting...</div>
+        return <Button type="secondary" loading>Connecting</Button>;
     }
 
     if (wallet.currentAccount) {
-        return <div>Current account {wallet.currentAccount}</div>
+        return <Account />;
     }
 
-    return (
-        <button onClick={connectWallet}>Connect Wallet</button>
-    );
+    return <ConnectButton />;
 };

@@ -9,7 +9,7 @@ export const useConnectWallet = (callback) => {
     const {setCurrentAccount} = useSetCurrentAccount();
 
     const setIsConnecting = useCallback((isLoading) => {
-        dispatch(walletActions.setIsCheckingConnection(isLoading));
+        dispatch(walletActions.setIsConnecting(isLoading));
     }, [dispatch]);
 
     const connectWallet = useCallback(async () => {
