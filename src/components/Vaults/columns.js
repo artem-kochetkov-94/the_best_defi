@@ -1,11 +1,7 @@
-import {BalanceDeposit} from '@src/components/BalanceDeposit';
-import {Assets} from './Assets';
-import Web3 from 'web3';
 import {Link} from 'react-router-dom';
-
-function formatAddress(s) {
-    return `${s.slice(0,5)}...${s.slice(-5)}`
-}
+import Web3 from 'web3';
+import {BalanceDeposit} from '@src/components/BalanceDeposit';
+import {Assets} from '@src/components/Assets';
 
 export const columns = [
     {
@@ -17,9 +13,7 @@ export const columns = [
           <Link to={`/vault/${record.addr}`}>
             <div>
               <div><b>Name: </b>{record.name}</div>
-              <div><b>Contract: </b>{formatAddress(text)}</div>
               <div>
-                <b>Assets: </b>
                 <Assets assets={record.assets} />
               </div>
             </div>

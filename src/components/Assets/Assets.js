@@ -16,11 +16,12 @@ export function Assets({assets}) {
     }
 
     return (
-        <Row>
+        <Row gutter={5} align="middle">
             {assets.map(asset => (
                 <Col key={asset}>
                     <div style={imageWrapper}>
                         <img src={iconsByAddress[asset]} style={imageStyle} />
+                        {iconsByAddress[asset] ? '' : asset}
                     </div>
                 </Col>
             ))}
