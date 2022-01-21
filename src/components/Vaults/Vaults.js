@@ -1,18 +1,13 @@
-import {useState, useEffect} from 'react';
+import {useSelector} from 'react-redux';
 import {Table} from 'antd';
 import {useVaults} from '@src/data-layer/vaults';
 import {columns} from './columns';
 
 export function Vaults() {
-    const {vaults, useFetchVaults} = useVaults();
+    const {vaults, useFetchVaults, activeVaultsSelector} = useVaults();
+    const activeVaults = useSelector(state => activeVaultsSelector(state))
 
     useFetchVaults();
-  
-    if (!vaults) {
-      return null;
-    }
-
-    const activeVaults = vaults.filter(vault => vault.active);
   
     return (
       <div>
@@ -20,6 +15,7 @@ export function Vaults() {
           rowKey="addr"
           dataSource={activeVaults}
           columns={columns}
+          loading={vaults.isFetcing}
         />
       </div>
     );

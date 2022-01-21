@@ -2,10 +2,10 @@ import {useEffect, useState} from 'react';
 import {useWallet} from '@src/data-layer';
 import Web3 from 'web3';
 import {ABI} from '@src/TetuPSABI';
-import {Spin} from 'antd';
 
-export function BalanceDeposit({addr}) {
+export function useBalanceOf(addr) {
     const [balance, setBalance] = useState(null);
+    const [balanceFormatted, setBalanceFormatted] = useState(null);
     const [loading, setLoading] = useState(false);
     const {wallet} = useWallet();
 
@@ -25,11 +25,13 @@ export function BalanceDeposit({addr}) {
                 
                 setLoading(true);
 
-                const deposited = await contract.methods.underlyingBalanceWithInvestmentForHolder(wallet.currentAccount).call();
-                const depositFormated = Web3.utils.fromWei(deposited, 'ether')
-                setBalance(depositFormated);
+                const deposited = await contract.methods.balanceOf(wallet.currentAccount).call();
+                setBalance(deposited);
+
+                const depositFormatted = Web3.utils.fromWei(deposited, 'ether');
+                setBalanceFormatted(depositFormatted);
             } catch (error) {
-                console.log('BalanceDeposit => getBalance: ', error.message);
+                console.log('BalanceShare => getBalance: ', error.message);
             } finally {
                 setLoading(false);
             }
@@ -38,13 +40,9 @@ export function BalanceDeposit({addr}) {
         getBalance();
     }, [addr, wallet]);
 
-    if (loading) {
-        return <Spin />;
+    return {
+        loading,
+        balance,
+        balanceFormatted,
     }
-
-    if (!balance || balance <= 0) {
-        return <span>-</span>;
-    }
-
-    return <span>{balance}</span>;
 }

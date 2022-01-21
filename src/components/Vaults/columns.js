@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom';
 import Web3 from 'web3';
-import {BalanceDeposit} from '@src/components/BalanceDeposit';
+import {BalanceDeposit} from '@src/components/Balance';
 import {Assets} from '@src/components/Assets';
 
 export const columns = [
@@ -25,13 +25,16 @@ export const columns = [
       title: 'TVL',
       dataIndex: 'tvl',
       key: 'tvl',
-      render: text => Web3.utils.fromWei(text, 'ether')
+      render: text => Web3.utils.fromWei(text, 'ether'),
+      sorter: (a, b) => a.tvl - b.tvl,
+      sortDirections: ['ascend', 'descend'],
+      defaultSortOrder: 'descend',
     },
     {
       title: 'Balance',
       key: 'balance',
       render: (text, record) => {
         return <BalanceDeposit addr={record.addr} />
-      }
+      },
     },
 ];

@@ -1,5 +1,5 @@
 import {useSelector} from 'react-redux';
-import {vaultsSelector, vaultByIdSelector} from './selectors';
+import {vaultsSelector, vaultByIdSelector, activeVaultsSelector} from './selectors';
 import {useFetchVaults} from './useFetchVaults';
 
 export function useVaults() {
@@ -9,5 +9,6 @@ export function useVaults() {
         vaults,
         useFetchVaults,
         vaultByIdSelector,
+        activeVaultsSelector,
     }
 }

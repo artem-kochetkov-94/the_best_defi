@@ -1,15 +1,26 @@
 import {createSelector} from "reselect";
 
-export const vaultsSelector = state => state.vaults.data;
+export const vaultsSelector = state => state.vaults;
+
+export const activeVaultsSelector = createSelector(
+    vaultsSelector,
+    vaults => {
+        if (!vaults.data) {
+            return [];
+        }
+
+        return vaults.data.filter(vault => vault.active);
+    }
+);
 
 export const vaultByIdSelector = createSelector(
     vaultsSelector,
     (_, props) => props.id,
     (vaults, id) => {
-        if (!vaults) {
+        if (!vaults.data) {
             return null;
         }
     
-        return vaults.find(vault => vault.addr === id);
+        return vaults.data.find(vault => vault.addr === id);
     }
 );

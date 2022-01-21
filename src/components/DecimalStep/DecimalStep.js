@@ -1,34 +1,36 @@
-import {useCallback, useState} from 'react';
 import {Slider, InputNumber} from 'antd';
+import {Form} from 'antd';
 
-export function DecimalStep({max}) {
-    const [value, setValue] = useState(0);
-  
-    const onChange = useCallback(value => {
-        if (isNaN(value)) {
-            return;
-        }
+const overrideValue = {
+    position: 'absolute',
+    top: 6,
+    left: 12,
+    backgroundColor: '#fff',
+}
 
-        setValue(value);
-    }, []);
-
+export function DecimalStep({max, maxFormatted, value, onChange}) {
+    console.log('value', value);
     return (
-        <div>
+        <Form.Item tooltip="This is a required field">
             <Slider
                 min={0}
                 max={max}
                 onChange={onChange}
                 value={typeof value === 'number' ? value : 0}
-                step={0.01}
+                step={max / 100}
             />
-            <InputNumber
-                min={0}
-                max={max}
-                style={{ margin: '0 16px' }}
-                step={0.01}
-                value={value}
-                onChange={onChange}
-            />
-        </div>
+            <div style={{position: 'relative'}}>
+                <InputNumber
+                    min={0}
+                    max={max}
+                    step={max / 100}
+                    value={value === max ? max : value.toFixed(18)}
+                    onChange={onChange}
+                    style={{width: '100%'}}
+                />
+                {/* TODO: Костыль? разобраться в BigNumber */}
+                {value === max && <p style={overrideValue}>{maxFormatted}</p>}
+            </div>
+        </Form.Item>
     );
 }
