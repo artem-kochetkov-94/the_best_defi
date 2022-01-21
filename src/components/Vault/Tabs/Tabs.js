@@ -14,16 +14,14 @@ export function Tabs() {
 
     const vault = useSelector(state => vaultByIdSelector(state, {id}));
 
+    console.log('underlying', vault.underlying);
+
     return (
         <Card>
             <AntdTabs defaultActiveKey="1" onChange={()=> null}>
                 <TabPane tab="Deposit" key="1">
-                    {vault.assets.map(asset => (
-                        <div>
-                            <div>Balance: <BalanceShare addr={asset} /></div>
-                            <DepositForm addr={asset} contractAddress={id} />
-                        </div>
-                    ))}
+                    <div>Balance: <BalanceShare addr={vault.underlying} /></div>
+                    <DepositForm addr={vault.underlying} contractAddress={id} />
                 </TabPane>
                 <TabPane tab="Withdraw" key="2">
                     {vault.assets.map(asset => (

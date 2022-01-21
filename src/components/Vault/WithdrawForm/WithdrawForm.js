@@ -3,16 +3,10 @@ import {useBalanceOf} from '@src/common/hooks/useBalanceOf';
 import {useWithdraw} from '@src/common/hooks/useWithdraw';
 import {DecimalStep} from '@src/components/DecimalStep';
 import {Form, Button, Spin} from 'antd';
-import {useVaults} from '@src/data-layer/vaults';
-import {useSelector} from 'react-redux';
 
 export function WithdrawForm({addr, contractAddress}) {
     const {loading, balance, balanceFormatted} = useBalanceOf(addr)
     const {withdraw} = useWithdraw();
-
-    const {vaultByIdSelector} = useVaults();
-    const vault = useSelector(state => vaultByIdSelector(state, {contractAddress}));
-    console.log('contract.vault', vault);
 
     const [value, setValue] = useState(0);
 
