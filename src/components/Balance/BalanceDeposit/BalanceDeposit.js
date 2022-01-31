@@ -1,8 +1,13 @@
-import {useBalanceWithInvestment} from '@src/common/hooks/useBalanceWithInvestment';
+import {useUserDepositedUnderlyingUsdc} from '@src/common/hooks/useUserDepositedUnderlyingUsdc';
 import {Balance} from '../Balance';
 
 export function BalanceDeposit({addr}) {
-    const {loading, balance} = useBalanceWithInvestment(addr);
+    const {loading, dataFormatted} = useUserDepositedUnderlyingUsdc(addr);
 
-    return <Balance loading={loading} data={balance} />
+    return (
+        <div>
+            <Balance loading={loading} data={dataFormatted} />
+            $
+        </div>
+    );
 }

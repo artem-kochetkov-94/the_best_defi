@@ -1,0 +1,1 @@
+export const getTotalTvlUsdcABI = ABI => ABI.find(item => item.name === 'totalTvlUsdc' && item.type === 'function');

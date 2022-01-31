@@ -1,5 +1,5 @@
 import React from 'react';
-import {Deposit} from '@src/components/Deposit';
+// import {Deposit} from '@src/components/Deposit';
 
 export function Vault({vault}) {
     return (
@@ -35,7 +35,7 @@ export function Vault({vault}) {
           {/* <div>underlyingVaults {JSON.stringify(vault.underlyingVaults)}</div> */}
           {/* <div>underlyingVaultsAddresses {JSON.stringify(vault.underlyingVaultsAddresses)}</div> */}
           {/* <div>users {vault.users}</div> */}
-          <Deposit />
+          {/* <Deposit /> */}
         </div>
     );
 }
